@@ -26,7 +26,7 @@ public class LoanCalc {
 	// Computes ending balance
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		double balance = loan;
-		double r = rate / 100.0;   // ריבית תקופתית
+		double r = (rate / 100.0) / n;   // ריבית תקופתית
 
 		for (int i = 0; i < n; i++) {
 			balance = balance * (1 + r) - payment;
