@@ -65,7 +65,8 @@ public class Anagram {
 
         if (Character.isLetter(c)) {
             result += Character.toLowerCase(c);
-       
+		} else if (c == ' ') {
+            result += ' ';     // עם רווחים
         }
     }
 
