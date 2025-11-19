@@ -17,7 +17,7 @@ public class Anagram {
 		String str = "1234567";
 		Boolean pass = true;
 		//// 10 can be changed to much larger values, like 1000
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			String randomAnagram = randomAnagram(str);
 			System.out.println(randomAnagram);
 			pass = pass && isAnagram(str, randomAnagram);
@@ -27,23 +27,63 @@ public class Anagram {
 	}  
 
 	// Returns true if the two given strings are anagrams, false otherwise.
-	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		public static boolean isAnagram(String str1, String str2) {
+   		 str1 = preProcess(str1).replace(" ", "");
+		 str2 = preProcess(str2).replace(" ", "");
+
+
+    	if (str1.length() != str2.length()) {
+       	 return false;
+    	}
+
+    	int[] freq = new int[256];
+
+    	for (int i = 0; i < str1.length(); i++) {
+        freq[str1.charAt(i)]++;
+        freq[str2.charAt(i)]--;
+    	}
+
+    	for (int i = 0; i < 256; i++) {
+        if (freq[i] != 0) return false;
+   	 }
+
+    	return true;
 	}
+
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
-	} 
+    String result = "";
+
+    for (int i = 0; i < str.length(); i++) {
+        char c = str.charAt(i);
+
+        if (Character.isLetter(c)) {
+            result += Character.toLowerCase(c);
+		} else if (c == ' ') {
+            result += ' ';     // עם רווחים
+        }
+    }
+
+    return result;
+}
+
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
-	}
+    
+		StringBuilder source = new StringBuilder(str);
+    	String result = "";
+
+   		 while (source.length() > 0) {
+        	int index = (int)(Math.random() * source.length());
+        	result += source.charAt(index);
+        	source.deleteCharAt(index);
+   		 }
+
+    return result;
+ }
 }
