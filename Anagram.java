@@ -27,32 +27,28 @@ public class Anagram {
 	}  
 
 	// Returns true if the two given strings are anagrams, false otherwise.
-	public static boolean isAnagram(String str1, String str2) {
-		str1 = preProcess(str1);
-        str2 = preProcess(str2);
+		public static boolean isAnagram(String str1, String str2) {
+   		 str1 = preProcess(str1);
+   		 str2 = preProcess(str2);
 
+    	if (str1.length() != str2.length()) {
+       	 return false;
+    	}
 
-		if(str1.length() != str2.length()) {
-			return false;
-		}
-		 boolean[] used = new boolean[str2.length()];
+    	int[] freq = new int[256];
 
     	for (int i = 0; i < str1.length(); i++) {
-        
-		 boolean found = false;
-        for (int j = 0; j < str2.length(); j++) {
-            if (!used[j] && str1.charAt(i) == str2.charAt(j)) {
-                used[j] = true;
-                found = true;
-                break;
-            }
-        }
-        if (!found) return false;
-    }
+        freq[str1.charAt(i)]++;
+        freq[str2.charAt(i)]--;
+    	}
 
-    return true;
+    	for (int i = 0; i < 256; i++) {
+        if (freq[i] != 0) return false;
+   	 }
 
+    	return true;
 	}
+
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
