@@ -25,14 +25,15 @@ public class LoanCalc {
 
     // Computes ending balance
     private static double endBalance(double loan, double rate, int n, double payment) {
-        double balance = loan;
-        double r = rate / 100.0;   // ריבית תקופתית – נכון!
+    	double balance = loan;
+   		double r = rate / 100.0;
 
-        for (int i = 0; i < n; i++) {
-            balance = balance * (1 + r) - payment;
-        }
-        return balance;
-    }
+    	for (int i = 0; i < n; i++) {
+       		balance = (balance - payment) * (1 + r);  // הסדר הנכון
+    	}
+    	return balance;
+}
+
 
     // Brute force search
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
